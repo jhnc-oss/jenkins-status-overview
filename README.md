@@ -12,3 +12,7 @@ REST API providing basic status overview data.
 - **`status-overview/master`:** Master status information
 - **`status-overview/agents`:** Agent status information (master node not included)
 - **`status-overview/plugins`:** Plugins status information
+
+#### Permissions
+
+Accessing the API requires `Status Overview` Permission (implied by `Administer`).
