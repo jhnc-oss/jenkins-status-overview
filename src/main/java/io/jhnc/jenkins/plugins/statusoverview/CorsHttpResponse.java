@@ -25,7 +25,6 @@
 package io.jhnc.jenkins.plugins.statusoverview;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import groovy.json.JsonBuilder;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.HttpResponse;
@@ -44,8 +43,6 @@ public class CorsHttpResponse implements HttpResponse {
         this.contentType = contentType;
     }
 
-    @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE",
-            justification = "https://github.com/spotbugs/spotbugs/issues/756")
     @Override
     public void generateResponse(StaplerRequest req, StaplerResponse rsp, Object node) throws IOException {
         rsp.setContentType(contentType + ";charset=UTF-8");

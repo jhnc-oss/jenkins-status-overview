@@ -31,7 +31,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.jvnet.hudson.MemoryUsage;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
@@ -40,6 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.google.common.truth.Truth.assertThat;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -160,14 +160,14 @@ class NodeComputerDetailsTest {
 
     @Test
     void coreVersionReturnsJenkinsVersion() {
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
         when(details.getJenkinsVersion()).thenReturn(new VersionNumber("2.345.6"));
         assertThat(details.getCoreVersion()).isEqualTo("2.345.6");
     }
 
     @Test
     void coreVersionReturnsPlaceholderIfNotAvailable() {
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
         when(details.getJenkinsVersion()).thenReturn(null);
         assertThat(details.getCoreVersion()).isEqualTo("<unknown>");
     }
@@ -178,7 +178,7 @@ class NodeComputerDetailsTest {
         data.put("hudson.node_monitors.SwapSpaceMonitor",
                 new SwapSpaceMonitor.MemoryUsage2(new MemoryUsage(bytesToGB(32L), bytesToGB(7L), 0L, 0L)));
         when(computer.getMonitorData()).thenReturn(data);
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
 
         assertThat(details.getMemoryUtilization()).isEqualTo("25/32 GB");
     }
@@ -189,7 +189,7 @@ class NodeComputerDetailsTest {
         data.put("hudson.node_monitors.SwapSpaceMonitor",
                 new SwapSpaceMonitor.MemoryUsage2(new MemoryUsage(17179869184L - 1, bytesToGB(2L), 0L, 0L)));
         when(computer.getMonitorData()).thenReturn(data);
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
 
         assertThat(details.getMemoryUtilization()).isEqualTo("14/16 GB");
     }
@@ -197,7 +197,7 @@ class NodeComputerDetailsTest {
     @Test
     void memoryUtilizationReturnsPlaceholderIfNotAvailable() {
         when(computer.getMonitorData()).thenReturn(Collections.emptyMap());
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
 
         assertThat(details.getMemoryUtilization()).isEqualTo("<unknown>");
     }
@@ -205,7 +205,7 @@ class NodeComputerDetailsTest {
     @Test
     void memoryUtilizationReturnsPlaceholderIfAgentNotAccessible() {
         when(computer.getMonitorData()).thenReturn(null);
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
 
         assertThat(details.getMemoryUtilization()).isEqualTo("<unknown>");
     }
@@ -215,7 +215,7 @@ class NodeComputerDetailsTest {
         final Map<String, Object> data = new HashMap<>();
         data.put("hudson.node_monitors.SwapSpaceMonitor", null);
         when(computer.getMonitorData()).thenReturn(data);
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
 
         assertThat(details.getMemoryUtilization()).isEqualTo("<unknown>");
     }
@@ -223,7 +223,7 @@ class NodeComputerDetailsTest {
     @Test
     void statusReturnsOnlineStatusIfOnline() {
         when(computer.isOffline()).thenReturn(false);
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
         assertThat(details.isOffline()).isFalse();
     }
 
@@ -231,7 +231,7 @@ class NodeComputerDetailsTest {
     void statusReturnsOnlineStatusIfOffline() {
         when(computer.isOffline()).thenReturn(true);
         when(computer.getOfflineCauseReason()).thenReturn("node maintenance");
-        final NodeComputerDetails details = Mockito.spy(new NodeComputerDetails(computer));
+        final NodeComputerDetails details = spy(new NodeComputerDetails(computer));
         assertThat(details.isOffline()).isTrue();
         assertThat(details.getOfflineCauseReason()).isEqualTo("node maintenance");
     }

@@ -58,7 +58,7 @@ class CorsHttpResponseTest {
     @Test
     void payloadIsIncluded() throws IOException {
         final ResponseCapture capture = new ResponseCapture();
-        final CorsHttpResponse resp = createSpy(new CorsHttpResponse("abc def", CONTENT_TYPE));
+        final CorsHttpResponse resp = create(new CorsHttpResponse("abc def", CONTENT_TYPE));
         resp.generateResponse(null, capture, null);
 
         assertThat(capture.getResponseString()).isEqualTo("abc def");
@@ -69,7 +69,7 @@ class CorsHttpResponseTest {
         when(descriptor.getLinkRoot()).thenReturn("https://abc.de");
         when(jenkins.getDescriptor(StatusOverviewConfiguration.class)).thenReturn(descriptor);
 
-        final CorsHttpResponse resp = createSpy(new CorsHttpResponse("x", CONTENT_TYPE));
+        final CorsHttpResponse resp = create(new CorsHttpResponse("x", CONTENT_TYPE));
         resp.generateResponse(null, respMock, null);
 
         verify(respMock).addHeader("Access-Control-Allow-Origin", "https://abc.de");
@@ -80,7 +80,7 @@ class CorsHttpResponseTest {
     void doesNotIncludeAccessControlAllowOriginHeaderIfUrlIsNotConfigured() throws IOException {
         when(jenkins.getDescriptor(StatusOverviewConfiguration.class)).thenReturn(null);
 
-        final CorsHttpResponse resp = createSpy(new CorsHttpResponse("x", CONTENT_TYPE));
+        final CorsHttpResponse resp = create(new CorsHttpResponse("x", CONTENT_TYPE));
         resp.generateResponse(null, respMock, null);
 
         verify(respMock, never()).addHeader(eq("Access-Control-Allow-Origin"), any());
@@ -92,7 +92,7 @@ class CorsHttpResponseTest {
         when(descriptor.getLinkRoot()).thenReturn("");
         when(jenkins.getDescriptor(StatusOverviewConfiguration.class)).thenReturn(descriptor);
 
-        final CorsHttpResponse resp = createSpy(new CorsHttpResponse("x", CONTENT_TYPE));
+        final CorsHttpResponse resp = create(new CorsHttpResponse("x", CONTENT_TYPE));
         resp.generateResponse(null, respMock, null);
 
         verify(respMock, never()).addHeader(eq("Access-Control-Allow-Origin"), any());
@@ -100,7 +100,7 @@ class CorsHttpResponseTest {
 
     @Test
     void includesContentTypeHeader() throws IOException {
-        final CorsHttpResponse resp = createSpy(new CorsHttpResponse("x", "application/json"));
+        final CorsHttpResponse resp = create(new CorsHttpResponse("x", "application/json"));
         resp.generateResponse(null, respMock, null);
 
         verify(respMock).setContentType("application/json;charset=UTF-8");
@@ -111,14 +111,14 @@ class CorsHttpResponseTest {
         final Map<String, String> data = new HashMap<>();
         data.put("a", "1");
         data.put("b", "2");
-        final CorsHttpResponse resp = createSpy(CorsHttpResponse.json(data));
+        final CorsHttpResponse resp = create(CorsHttpResponse.json(data));
         resp.generateResponse(null, respMock, null);
 
         assertThat(respMock.getResponseString()).isEqualTo("{\"a\":\"1\",\"b\":\"2\"}");
         verify(respMock).setContentType("application/json;charset=UTF-8");
     }
 
-    private CorsHttpResponse createSpy(CorsHttpResponse response) {
+    private CorsHttpResponse create(CorsHttpResponse response) {
         final CorsHttpResponse spy = Mockito.spy(response);
         doReturn(jenkins).when(spy).getJenkins();
         return spy;
