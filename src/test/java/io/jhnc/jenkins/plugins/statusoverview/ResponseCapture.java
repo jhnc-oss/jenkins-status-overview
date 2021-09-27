@@ -47,7 +47,7 @@ import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ResponseCapture implements StaplerResponse {
+class ResponseCapture implements StaplerResponse {
     private final StringWriter out = new StringWriter();
     private final PrintWriter writer = new PrintWriter(out);
     private int statusCode = 0;
