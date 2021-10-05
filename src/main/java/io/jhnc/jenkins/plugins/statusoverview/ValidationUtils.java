@@ -24,7 +24,7 @@
 
 package io.jhnc.jenkins.plugins.statusoverview;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -34,7 +34,7 @@ final class ValidationUtils {
     private ValidationUtils() {
     }
 
-    public static boolean isValidUrl(@Nullable String url) {
+    public static boolean isValidUrl(@CheckForNull String url) {
         if (isNullOrEmpty(url) || Character.isWhitespace(url.charAt(0))) {
             return false;
         }
@@ -47,7 +47,7 @@ final class ValidationUtils {
         }
     }
 
-    public static boolean isNullOrEmpty(@Nullable String str) {
+    public static boolean isNullOrEmpty(@CheckForNull String str) {
         return str == null || str.isEmpty();
     }
 }

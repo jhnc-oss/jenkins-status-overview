@@ -28,7 +28,6 @@ import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 import groovy.json.JsonBuilder;
 import hudson.Extension;
 import hudson.PluginManager;
@@ -196,7 +195,7 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         return new JsonBuilder(obj).toString();
     }
 
-    private HttpResponse response(@Nullable String payload) {
+    private HttpResponse response(@CheckForNull String payload) {
         if (payload != null) {
             return CorsHttpResponse.json(payload);
         }

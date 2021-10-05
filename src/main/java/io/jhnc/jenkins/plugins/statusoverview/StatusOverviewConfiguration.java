@@ -24,8 +24,8 @@
 
 package io.jhnc.jenkins.plugins.statusoverview;
 
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.NonNull;
-import edu.umd.cs.findbugs.annotations.Nullable;
 import hudson.Extension;
 import hudson.Util;
 import hudson.model.Descriptor;
@@ -88,7 +88,7 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
             return url;
         }
 
-        public void setOverviewLink(@Nullable String overviewLink) {
+        public void setOverviewLink(@CheckForNull String overviewLink) {
             this.overviewLink = safeAndTrimmed(overviewLink);
         }
 
@@ -102,7 +102,7 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
         }
 
         @NonNull
-        private String safeAndTrimmed(@Nullable String str) {
+        private String safeAndTrimmed(@CheckForNull String str) {
             return Util.fixNull(str).trim();
         }
     }
