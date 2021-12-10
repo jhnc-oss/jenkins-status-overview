@@ -42,7 +42,6 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
 
     @Extension
     public static class DescriptorImpl extends Descriptor<GlobalConfiguration> {
-
         private String overviewLink;
 
         public DescriptorImpl() {
@@ -57,7 +56,7 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
         }
 
         @Override
-        public boolean configure(StaplerRequest req, JSONObject o) throws FormException {
+        public boolean configure(@NonNull StaplerRequest req, @NonNull JSONObject o) throws FormException {
             if (Jenkins.get().hasPermission(Jenkins.ADMINISTER)) {
                 final String overviewLink = o.getString("statusOverviewLink");
 
@@ -92,12 +91,14 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
             this.overviewLink = safeAndTrimmed(overviewLink);
         }
 
-        public FormValidation doCheckOverviewLink(@QueryParameter String overviewLink) {
-            return checkOverviewLink(overviewLink) ? FormValidation.ok()
+        @NonNull
+        public FormValidation doCheckOverviewLink(@NonNull @QueryParameter String overviewLink) {
+            return checkOverviewLink(overviewLink)
+                    ? FormValidation.ok()
                     : FormValidation.error("The URL you've specified is invalid! Please specify a correct URL.");
         }
 
-        private boolean checkOverviewLink(String overviewLink) {
+        private boolean checkOverviewLink(@NonNull String overviewLink) {
             return overviewLink.isEmpty() || ValidationUtils.isValidUrl(overviewLink);
         }
 

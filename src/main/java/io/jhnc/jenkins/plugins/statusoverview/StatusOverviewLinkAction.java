@@ -25,6 +25,7 @@
 package io.jhnc.jenkins.plugins.statusoverview;
 
 import edu.umd.cs.findbugs.annotations.CheckForNull;
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.RootAction;
 import jenkins.model.Jenkins;
@@ -60,6 +61,7 @@ public class StatusOverviewLinkAction implements RootAction, StaplerProxy {
         Jenkins.get().checkPermission(StatusOverviewAction.READ);
     }
 
+    @NonNull
     protected Jenkins getJenkins() {
         return Jenkins.get();
     }
@@ -68,6 +70,7 @@ public class StatusOverviewLinkAction implements RootAction, StaplerProxy {
         return getJenkins().hasPermission(StatusOverviewAction.READ) && !ValidationUtils.isNullOrEmpty(getOverviewLink());
     }
 
+    @CheckForNull
     private String getOverviewLink() {
         final StatusOverviewConfiguration.DescriptorImpl descriptor = (StatusOverviewConfiguration.DescriptorImpl)
                 getJenkins().getDescriptor(StatusOverviewConfiguration.class);

@@ -38,13 +38,13 @@ public class CorsHttpResponse implements HttpResponse {
     private final String text;
     private final String contentType;
 
-    public CorsHttpResponse(String text, String contentType) {
+    public CorsHttpResponse(@NonNull String text, @NonNull String contentType) {
         this.text = text;
         this.contentType = contentType;
     }
 
     @Override
-    public void generateResponse(StaplerRequest req, StaplerResponse rsp, Object node) throws IOException {
+    public void generateResponse(StaplerRequest req, @NonNull StaplerResponse rsp, Object node) throws IOException {
         rsp.setContentType(contentType + ";charset=UTF-8");
 
         final String originUrl = getOriginUrl();
@@ -60,20 +60,24 @@ public class CorsHttpResponse implements HttpResponse {
         }
     }
 
+    @NonNull
     protected Jenkins getJenkins() {
         return Jenkins.get();
     }
 
+    @NonNull
     private String getOriginUrl() {
         final StatusOverviewConfiguration.DescriptorImpl descriptor = (StatusOverviewConfiguration.DescriptorImpl)
                 getJenkins().getDescriptor(StatusOverviewConfiguration.class);
         return descriptor == null ? "" : descriptor.getLinkRoot();
     }
 
+    @NonNull
     public static CorsHttpResponse json(@NonNull Object obj) {
         return json(new JsonBuilder(obj).toString());
     }
 
+    @NonNull
     public static CorsHttpResponse json(@NonNull String payload) {
         return new CorsHttpResponse(payload, "application/json");
     }

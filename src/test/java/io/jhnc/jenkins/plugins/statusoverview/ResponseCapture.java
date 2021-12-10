@@ -297,7 +297,8 @@ class ResponseCapture implements StaplerResponse {
         return null;
     }
 
-    public static ResponseCapture fromResponse(HttpResponse resp) {
+    @NonNull
+    public static ResponseCapture fromResponse(@NonNull HttpResponse resp) {
         final ResponseCapture responseCapture = new ResponseCapture();
         try {
             resp.generateResponse(null, responseCapture, null);

@@ -24,6 +24,7 @@
 
 package io.jhnc.jenkins.plugins.statusoverview;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import jenkins.model.Jenkins;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -118,7 +119,8 @@ class CorsHttpResponseTest {
         verify(respMock).setContentType("application/json;charset=UTF-8");
     }
 
-    private CorsHttpResponse create(CorsHttpResponse response) {
+    @NonNull
+    private CorsHttpResponse create(@NonNull CorsHttpResponse response) {
         final CorsHttpResponse spy = Mockito.spy(response);
         doReturn(jenkins).when(spy).getJenkins();
         return spy;

@@ -24,6 +24,7 @@
 
 package io.jhnc.jenkins.plugins.statusoverview;
 
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.model.Computer;
 import hudson.node_monitors.SwapSpaceMonitor;
@@ -49,6 +50,7 @@ public class NodeComputerDetails {
         this.computer = Objects.requireNonNull(computer, "Computer must not be null");
     }
 
+    @NonNull
     public String getHostname() {
         try {
             final String hostName = computer.getHostName();
@@ -63,6 +65,7 @@ public class NodeComputerDetails {
         return PLACEHOLDER;
     }
 
+    @NonNull
     public String getOperatingSystem() {
         final Map<String, Object> monitorData = getMonitorDataOrEmpty();
         return Optional.ofNullable(monitorData.getOrDefault("hudson.node_monitors.ArchitectureMonitor", PLACEHOLDER))
@@ -77,10 +80,12 @@ public class NodeComputerDetails {
         return computer.isOffline();
     }
 
+    @NonNull
     public String getOfflineCauseReason() {
         return computer.getOfflineCauseReason();
     }
 
+    @NonNull
     public String getMemoryUtilization() {
         final Map<String, Object> monitorData = getMonitorDataOrEmpty();
         final SwapSpaceMonitor.MemoryUsage2 memUsage = (SwapSpaceMonitor.MemoryUsage2) monitorData.get("hudson.node_monitors.SwapSpaceMonitor");
@@ -92,6 +97,7 @@ public class NodeComputerDetails {
         return PLACEHOLDER;
     }
 
+    @NonNull
     public String getJavaVersion() {
         try {
             final Map<Object, Object> systemProperties = computer.getSystemProperties();
@@ -104,11 +110,13 @@ public class NodeComputerDetails {
         return PLACEHOLDER;
     }
 
+    @NonNull
     public String getCoreVersion() {
         final VersionNumber coreVersion = getJenkinsVersion();
         return coreVersion == null ? PLACEHOLDER : coreVersion.toString();
     }
 
+    @CheckForNull
     protected VersionNumber getJenkinsVersion() {
         return Jenkins.getVersion();
     }
@@ -117,6 +125,7 @@ public class NodeComputerDetails {
         return Math.round(bytes / BYTES_TO_GB_DIVISOR);
     }
 
+    @NonNull
     private Map<String, Object> getMonitorDataOrEmpty() {
         return Optional.ofNullable(computer.getMonitorData()).orElse(Collections.emptyMap());
     }

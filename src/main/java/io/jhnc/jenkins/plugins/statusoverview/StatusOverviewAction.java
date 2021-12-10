@@ -90,7 +90,8 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         return this;
     }
 
-    public HttpResponse doPlugins(StaplerRequest req) {
+    @NonNull
+    public HttpResponse doPlugins(@NonNull StaplerRequest req) {
         LOGGER.debug("Plugins status request from '{}'", req.getRemoteHost());
 
         try (ACLContext ignored = changeContext()) {
@@ -98,7 +99,8 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         }
     }
 
-    public HttpResponse doAgents(StaplerRequest req) {
+    @NonNull
+    public HttpResponse doAgents(@NonNull StaplerRequest req) {
         LOGGER.debug("Agents status request from '{}'", req.getRemoteHost());
 
         try (ACLContext ignored = changeContext()) {
@@ -106,7 +108,8 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         }
     }
 
-    public HttpResponse doMaster(StaplerRequest req) {
+    @NonNull
+    public HttpResponse doMaster(@NonNull StaplerRequest req) {
         LOGGER.debug("Master status request from '{}'", req.getRemoteHost());
 
         try (ACLContext ignored = changeContext()) {
@@ -118,23 +121,27 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         Jenkins.get().checkPermission(READ);
     }
 
+    @NonNull
     protected ACLContext changeContext() {
         return ACL.as2(ACL.SYSTEM2);
     }
 
+    @NonNull
     protected Jenkins getJenkins() {
         return Jenkins.get();
     }
 
     @CheckForNull
-    protected Computer getComputer(Node node) {
+    protected Computer getComputer(@NonNull Node node) {
         return node.toComputer();
     }
 
-    protected NodeComputerDetails getNodeDetails(Computer computer) {
+    @NonNull
+    protected NodeComputerDetails getNodeDetails(@NonNull Computer computer) {
         return new NodeComputerDetails(computer);
     }
 
+    @NonNull
     private String collectPluginData() {
         final Jenkins jenkins = getJenkins();
         final PluginManager pluginManager = jenkins.getPluginManager();
@@ -150,6 +157,7 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         return toJson(pluginList);
     }
 
+    @NonNull
     private String collectAgentData() {
         final List<Map<String, String>> nodeList = new ArrayList<>();
 
@@ -165,6 +173,7 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         return toJson(nodeList);
     }
 
+    @CheckForNull
     private String collectMasterData() {
         final Computer master = getJenkins().getComputers()[0];
 
@@ -174,7 +183,8 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         return null;
     }
 
-    private Map<String, String> transformToMap(NodeComputerDetails details, boolean isMaster) {
+    @NonNull
+    private Map<String, String> transformToMap(@NonNull NodeComputerDetails details, boolean isMaster) {
         final Map<String, String> data = new HashMap<>();
         data.put("name", details.getHostname());
         data.put("operatingSystem", details.getOperatingSystem());
@@ -191,10 +201,12 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
         return data;
     }
 
+    @NonNull
     private String toJson(@NonNull Object obj) {
         return new JsonBuilder(obj).toString();
     }
 
+    @NonNull
     private HttpResponse response(@CheckForNull String payload) {
         if (payload != null) {
             return CorsHttpResponse.json(payload);

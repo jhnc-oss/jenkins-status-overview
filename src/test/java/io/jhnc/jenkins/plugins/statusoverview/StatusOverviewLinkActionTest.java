@@ -24,6 +24,7 @@
 
 package io.jhnc.jenkins.plugins.statusoverview;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import jenkins.model.Jenkins;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -103,6 +104,7 @@ class StatusOverviewLinkActionTest {
         assertThat(action.getUrlName()).isEqualTo("https://ab.cd");
     }
 
+    @NonNull
     private StatusOverviewLinkAction createSpy() {
         final StatusOverviewLinkAction action = spy(StatusOverviewLinkAction.class);
         doReturn(jenkins).when(action).getJenkins();

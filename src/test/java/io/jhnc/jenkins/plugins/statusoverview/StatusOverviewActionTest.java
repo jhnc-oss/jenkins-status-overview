@@ -24,6 +24,7 @@
 
 package io.jhnc.jenkins.plugins.statusoverview;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.PluginManager;
 import hudson.PluginWrapper;
 import hudson.model.Computer;
@@ -265,7 +266,8 @@ class StatusOverviewActionTest {
         verify(jenkins, times(1)).getComputers();
     }
 
-    private String responseString(HttpResponse resp) {
+    @NonNull
+    private String responseString(@NonNull HttpResponse resp) {
         if (resp instanceof CorsHttpResponse) {
             final CorsHttpResponse spy = Mockito.spy((CorsHttpResponse) resp);
             doReturn(jenkins).when(spy).getJenkins();
@@ -274,10 +276,11 @@ class StatusOverviewActionTest {
         return ResponseCapture.fromResponse(resp).getResponseString();
     }
 
-    private int responseCode(HttpResponse resp) {
+    private int responseCode(@NonNull HttpResponse resp) {
         return ResponseCapture.fromResponse(resp).getStatus();
     }
 
+    @NonNull
     private StatusOverviewAction createSpy() {
         final StatusOverviewAction action = Mockito.spy(StatusOverviewAction.class);
         doReturn(context).when(action).changeContext();
@@ -285,6 +288,7 @@ class StatusOverviewActionTest {
         return action;
     }
 
+    @NonNull
     private PluginWrapper mockPlugin(String shortName, String displayName, String version) {
         final PluginWrapper plugin = mock(PluginWrapper.class);
         when(plugin.getShortName()).thenReturn(shortName);
@@ -293,6 +297,7 @@ class StatusOverviewActionTest {
         return plugin;
     }
 
+    @NonNull
     private NodeComputerDetails mockNodeDetails(String name, int executor) {
         final NodeComputerDetails node = mock(NodeComputerDetails.class);
         when(node.getHostname()).thenReturn(name);
