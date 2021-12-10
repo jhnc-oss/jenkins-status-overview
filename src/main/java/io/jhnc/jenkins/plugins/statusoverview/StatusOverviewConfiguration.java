@@ -68,7 +68,7 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
                 save();
                 return super.configure(req, o);
             }
-            throw new FormException("User doesn't have permissions to save", "Server ID");
+            throw new FormException(Messages.StatusOverviewConfiguration_configurePermissionDenied(), "Server ID");
         }
 
         @NonNull
@@ -95,7 +95,7 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
         public FormValidation doCheckOverviewLink(@NonNull @QueryParameter String overviewLink) {
             return checkOverviewLink(overviewLink)
                     ? FormValidation.ok()
-                    : FormValidation.error("The URL you've specified is invalid! Please specify a correct URL.");
+                    : FormValidation.error(Messages.StatusOverviewConfiguration_urlValidationError());
         }
 
         private boolean checkOverviewLink(@NonNull String overviewLink) {
