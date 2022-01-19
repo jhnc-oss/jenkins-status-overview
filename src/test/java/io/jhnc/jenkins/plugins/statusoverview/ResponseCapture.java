@@ -45,8 +45,6 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 class ResponseCapture implements StaplerResponse {
     private final StringWriter out = new StringWriter();
     private final PrintWriter writer = new PrintWriter(out);
@@ -299,12 +297,12 @@ class ResponseCapture implements StaplerResponse {
 
     @NonNull
     public static ResponseCapture fromResponse(@NonNull HttpResponse resp) {
-        final ResponseCapture responseCapture = new ResponseCapture();
         try {
+            final ResponseCapture responseCapture = new ResponseCapture();
             resp.generateResponse(null, responseCapture, null);
+            return responseCapture;
         } catch (IOException | ServletException e) {
-            fail(e);
+            throw new RuntimeException(e);
         }
-        return responseCapture;
     }
 }
