@@ -54,7 +54,7 @@ class ValidationUtilsTest {
     }
 
     @Test
-    void validUrlReturnsFalseOnValidUrl() {
+    void validUrlReturnsTrueOnValidUrl() {
         assertThat(ValidationUtils.isValidUrl("http://valid.url")).isTrue();
         assertThat(ValidationUtils.isValidUrl("https://valid.url")).isTrue();
         assertThat(ValidationUtils.isValidUrl("https://val-id.url.org")).isTrue();
