@@ -55,7 +55,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings({"PMD.ExcessiveImports", "PMD.TooManyMethods"})
+@SuppressWarnings("PMD.TooManyMethods")
 @Extension
 public class StatusOverviewAction implements RootAction, StaplerProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatusOverviewAction.class);
