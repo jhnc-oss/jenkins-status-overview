@@ -35,6 +35,7 @@ import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.interceptor.RequirePOST;
 
 import java.net.URI;
 
@@ -91,8 +92,10 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
             this.overviewLink = safeAndTrimmed(overviewLink);
         }
 
+        @RequirePOST
         @NonNull
         public FormValidation doCheckOverviewLink(@NonNull @QueryParameter String overviewLink) {
+            Jenkins.get().checkPermission(Jenkins.ADMINISTER);
             return checkOverviewLink(overviewLink)
                     ? FormValidation.ok()
                     : FormValidation.error(Messages.StatusOverviewConfiguration_urlValidationError());

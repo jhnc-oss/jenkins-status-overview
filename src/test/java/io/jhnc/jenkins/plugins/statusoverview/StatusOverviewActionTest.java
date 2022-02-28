@@ -100,6 +100,7 @@ class StatusOverviewActionTest {
         when(pluginManager.getPlugins()).thenReturn(Collections.emptyList());
 
         action.doPlugins(ignore);
+        verify(action).checkPermission();
         verify(action).changeContext();
     }
 
@@ -147,6 +148,7 @@ class StatusOverviewActionTest {
         final StatusOverviewAction action = createSpy();
 
         action.doAgents(ignore);
+        verify(action).checkPermission();
         verify(action).changeContext();
     }
 
@@ -226,6 +228,7 @@ class StatusOverviewActionTest {
         doReturn(details).when(action).getNodeDetails(computer);
 
         action.doMaster(ignore);
+        verify(action).checkPermission();
         verify(action).changeContext();
     }
 
@@ -285,6 +288,7 @@ class StatusOverviewActionTest {
         final StatusOverviewAction action = Mockito.spy(StatusOverviewAction.class);
         doReturn(context).when(action).changeContext();
         doReturn(jenkins).when(action).getJenkins();
+        doNothing().when(action).checkPermission();
         return action;
     }
 
