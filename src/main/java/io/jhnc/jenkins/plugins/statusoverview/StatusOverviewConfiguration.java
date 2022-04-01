@@ -61,11 +61,11 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
             if (Jenkins.get().hasPermission(Jenkins.ADMINISTER)) {
                 final String overviewLink = o.getString("statusOverviewLink");
 
-                //check overview link again before saving so an incorrect value won't be saved to the config
-                if (checkOverviewLink(overviewLink)) {
-                    setOverviewLink(overviewLink);
+                if (!checkOverviewLink(overviewLink)) {
+                    throw new FormException(Messages.StatusOverviewConfiguration_urlValidationError(), "statusOverviewLink");
                 }
 
+                setOverviewLink(overviewLink);
                 save();
                 return super.configure(req, o);
             }
