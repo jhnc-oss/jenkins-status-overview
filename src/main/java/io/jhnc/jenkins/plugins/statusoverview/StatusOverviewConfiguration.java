@@ -69,7 +69,7 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
                 save();
                 return super.configure(req, o);
             }
-            throw new FormException(Messages.StatusOverviewConfiguration_configurePermissionDenied(), "Server ID");
+            throw new FormException(Messages.StatusOverviewConfiguration_configurePermissionDenied(), "statusOverviewLink");
         }
 
         @NonNull
