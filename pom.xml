@@ -21,7 +21,7 @@
     </properties>
 
     <name>Status Overview</name>
-    <description>Provides a status overview API.</description>
+
     <licenses>
         <license>
             <name>MIT License</name>
