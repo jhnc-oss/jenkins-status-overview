@@ -38,7 +38,6 @@ import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 public class NodeComputerDetails {
     private static final Logger LOGGER = LoggerFactory.getLogger(NodeComputerDetails.class);
@@ -67,9 +66,8 @@ public class NodeComputerDetails {
 
     @NonNull
     public String getOperatingSystem() {
-        final Map<String, Object> monitorData = getMonitorDataOrEmpty();
-        return Optional.ofNullable(monitorData.getOrDefault("hudson.node_monitors.ArchitectureMonitor", PLACEHOLDER))
-                .orElse(PLACEHOLDER).toString();
+        return Objects.requireNonNullElse(getMonitorDataOrEmpty()
+                .getOrDefault("hudson.node_monitors.ArchitectureMonitor", PLACEHOLDER), PLACEHOLDER).toString();
     }
 
     public int getNumExecutors() {
@@ -127,6 +125,6 @@ public class NodeComputerDetails {
 
     @NonNull
     private Map<String, Object> getMonitorDataOrEmpty() {
-        return Optional.ofNullable(computer.getMonitorData()).orElse(Collections.emptyMap());
+        return Objects.requireNonNullElse(computer.getMonitorData(), Collections.emptyMap());
     }
 }

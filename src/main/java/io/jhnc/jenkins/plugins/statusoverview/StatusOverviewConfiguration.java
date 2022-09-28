@@ -27,7 +27,6 @@ package io.jhnc.jenkins.plugins.statusoverview;
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
-import hudson.Util;
 import hudson.model.Descriptor;
 import hudson.util.FormValidation;
 import jenkins.model.GlobalConfiguration;
@@ -38,6 +37,7 @@ import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
 import java.net.URI;
+import java.util.Objects;
 
 public class StatusOverviewConfiguration extends GlobalConfiguration {
 
@@ -107,7 +107,7 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
 
         @NonNull
         private String safeAndTrimmed(@CheckForNull String str) {
-            return Util.fixNull(str).trim();
+            return Objects.requireNonNullElse(str, "").trim();
         }
     }
 }
