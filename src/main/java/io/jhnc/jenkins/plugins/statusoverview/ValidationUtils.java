@@ -26,9 +26,8 @@ package io.jhnc.jenkins.plugins.statusoverview;
 
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 final class ValidationUtils {
     private ValidationUtils() {
@@ -40,9 +39,9 @@ final class ValidationUtils {
         }
 
         try {
-            new URL(url).toURI();
+            new URI(url);
             return true;
-        } catch (MalformedURLException | URISyntaxException e) {
+        } catch (URISyntaxException e) {
             return false;
         }
     }
