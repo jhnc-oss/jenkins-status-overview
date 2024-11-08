@@ -52,7 +52,7 @@ class CorsHttpResponseTest {
     @Mock
     Jenkins jenkins;
     @Spy
-    ResponseCapture respMock = spy(new ResponseCapture());
+    final ResponseCapture respMock = spy(new ResponseCapture());
     @Mock
     StatusOverviewConfiguration.DescriptorImpl descriptor;
 

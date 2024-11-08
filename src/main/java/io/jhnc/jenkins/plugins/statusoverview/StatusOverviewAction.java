@@ -44,7 +44,7 @@ import hudson.util.HttpResponses;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.StaplerProxy;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +93,7 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
 
     @RequirePOST
     @NonNull
-    public HttpResponse doPlugins(@NonNull StaplerRequest req) {
+    public HttpResponse doPlugins(@NonNull StaplerRequest2 req) {
         checkPermission();
         LOGGER.debug("Plugins status request from '{}'", req.getRemoteHost());
 
@@ -104,7 +104,7 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
 
     @RequirePOST
     @NonNull
-    public HttpResponse doAgents(@NonNull StaplerRequest req) {
+    public HttpResponse doAgents(@NonNull StaplerRequest2 req) {
         checkPermission();
         LOGGER.debug("Agents status request from '{}'", req.getRemoteHost());
 
@@ -115,7 +115,7 @@ public class StatusOverviewAction implements RootAction, StaplerProxy {
 
     @RequirePOST
     @NonNull
-    public HttpResponse doMaster(@NonNull StaplerRequest req) {
+    public HttpResponse doMaster(@NonNull StaplerRequest2 req) {
         checkPermission();
         LOGGER.debug("Master status request from '{}'", req.getRemoteHost());
 

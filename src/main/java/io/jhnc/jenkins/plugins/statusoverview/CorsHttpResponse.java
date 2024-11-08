@@ -28,8 +28,8 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import groovy.json.JsonBuilder;
 import jenkins.model.Jenkins;
 import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.StaplerRequest2;
+import org.kohsuke.stapler.StaplerResponse2;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -44,7 +44,7 @@ public class CorsHttpResponse implements HttpResponse {
     }
 
     @Override
-    public void generateResponse(StaplerRequest req, @NonNull StaplerResponse rsp, Object node) throws IOException {
+    public void generateResponse(StaplerRequest2 req, @NonNull StaplerResponse2 rsp, Object node) throws IOException {
         rsp.setContentType(contentType + ";charset=UTF-8");
 
         final String originUrl = getOriginUrl();

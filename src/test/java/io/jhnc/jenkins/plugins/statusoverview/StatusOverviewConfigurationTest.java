@@ -5,7 +5,7 @@ import hudson.util.FormValidation;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
@@ -111,7 +111,7 @@ class StatusOverviewConfigurationTest {
             final Jenkins jenkins = mockJenkins(mockStatic);
             when(jenkins.hasPermission(Jenkins.ADMINISTER)).thenReturn(true);
 
-            descriptor.configure(mock(StaplerRequest.class), new JSONObject().element("statusOverviewLink", ""));
+            descriptor.configure(mock(StaplerRequest2.class), new JSONObject().element("statusOverviewLink", ""));
 
             verify(jenkins).hasPermission(Jenkins.ADMINISTER);
         }
@@ -125,7 +125,7 @@ class StatusOverviewConfigurationTest {
             when(jenkins.hasPermission(Jenkins.ADMINISTER)).thenReturn(false);
 
             assertThrows(Descriptor.FormException.class, () ->
-                    descriptor.configure(mock(StaplerRequest.class), new JSONObject().element("statusOverviewLink", "")));
+                    descriptor.configure(mock(StaplerRequest2.class), new JSONObject().element("statusOverviewLink", "")));
         }
     }
 
@@ -136,7 +136,7 @@ class StatusOverviewConfigurationTest {
             final Jenkins jenkins = mockJenkins(mockStatic);
             when(jenkins.hasPermission(Jenkins.ADMINISTER)).thenReturn(true);
 
-            descriptor.configure(mock(StaplerRequest.class), new JSONObject().element("statusOverviewLink", "https://xy.z"));
+            descriptor.configure(mock(StaplerRequest2.class), new JSONObject().element("statusOverviewLink", "https://xy.z"));
 
             assertThat(descriptor.getOverviewLink()).isEqualTo("https://xy.z");
             verify(descriptor).save();
@@ -151,7 +151,7 @@ class StatusOverviewConfigurationTest {
             when(jenkins.hasPermission(Jenkins.ADMINISTER)).thenReturn(true);
 
             assertThrows(Descriptor.FormException.class, () ->
-                    descriptor.configure(mock(StaplerRequest.class), new JSONObject().element("statusOverviewLink", "an invalid url")));
+                    descriptor.configure(mock(StaplerRequest2.class), new JSONObject().element("statusOverviewLink", "an invalid url")));
         }
     }
 
