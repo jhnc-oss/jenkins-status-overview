@@ -35,7 +35,7 @@ import jenkins.model.Jenkins;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -58,7 +58,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class StatusOverviewActionTest {
-    private static final StaplerRequest ignore = mock(StaplerRequest.class);
+    private static final StaplerRequest2 ignore = mock(StaplerRequest2.class);
     @Mock
     Jenkins jenkins;
     @Mock

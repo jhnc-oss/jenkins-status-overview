@@ -33,7 +33,7 @@ import jenkins.model.GlobalConfiguration;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.interceptor.RequirePOST;
 
 import java.net.URI;
@@ -57,7 +57,7 @@ public class StatusOverviewConfiguration extends GlobalConfiguration {
         }
 
         @Override
-        public boolean configure(@NonNull StaplerRequest req, @NonNull JSONObject o) throws FormException {
+        public boolean configure(@NonNull StaplerRequest2 req, @NonNull JSONObject o) throws FormException {
             if (Jenkins.get().hasPermission(Jenkins.ADMINISTER)) {
                 final String overviewLink = o.getString("statusOverviewLink");
 

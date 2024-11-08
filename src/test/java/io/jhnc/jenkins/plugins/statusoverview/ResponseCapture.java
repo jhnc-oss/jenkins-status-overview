@@ -25,16 +25,16 @@
 package io.jhnc.jenkins.plugins.statusoverview;
 
 import edu.umd.cs.findbugs.annotations.NonNull;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import net.sf.json.JsonConfig;
 import org.kohsuke.stapler.HttpResponse;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.StaplerRequest2;
+import org.kohsuke.stapler.StaplerResponse2;
 import org.kohsuke.stapler.export.Flavor;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -45,7 +45,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.Locale;
 
-class ResponseCapture implements StaplerResponse {
+class ResponseCapture implements StaplerResponse2 {
     private final StringWriter out = new StringWriter();
     private final PrintWriter writer = new PrintWriter(out);
     private int statusCode = 0;
@@ -55,11 +55,11 @@ class ResponseCapture implements StaplerResponse {
     }
 
     @Override
-    public void forward(Object it, String url, StaplerRequest request) {
+    public void forward(Object it, String url, StaplerRequest2 request) {
     }
 
     @Override
-    public void forwardToPreviousPage(StaplerRequest request) {
+    public void forwardToPreviousPage(StaplerRequest2 request) {
     }
 
     @Override
@@ -71,39 +71,39 @@ class ResponseCapture implements StaplerResponse {
     }
 
     @Override
-    public void serveFile(StaplerRequest request, URL res) {
+    public void serveFile(StaplerRequest2 request, URL res) {
     }
 
     @Override
-    public void serveFile(StaplerRequest request, URL res, long expiration) {
+    public void serveFile(StaplerRequest2 request, URL res, long expiration) {
     }
 
     @Override
-    public void serveLocalizedFile(StaplerRequest request, URL res) {
+    public void serveLocalizedFile(StaplerRequest2 request, URL res) {
     }
 
     @Override
-    public void serveLocalizedFile(StaplerRequest request, URL res, long expiration) {
+    public void serveLocalizedFile(StaplerRequest2 request, URL res, long expiration) {
     }
 
     @Override
-    public void serveFile(StaplerRequest req, InputStream data, long lastModified, long expiration, long contentLength, String fileName) {
+    public void serveFile(StaplerRequest2 req, InputStream data, long lastModified, long expiration, long contentLength, String fileName) {
     }
 
     @Override
-    public void serveFile(StaplerRequest req, InputStream data, long lastModified, long expiration, int contentLength, String fileName) {
+    public void serveFile(StaplerRequest2 req, InputStream data, long lastModified, long expiration, int contentLength, String fileName) {
     }
 
     @Override
-    public void serveFile(StaplerRequest req, InputStream data, long lastModified, long contentLength, String fileName) {
+    public void serveFile(StaplerRequest2 req, InputStream data, long lastModified, long contentLength, String fileName) {
     }
 
     @Override
-    public void serveFile(StaplerRequest req, InputStream data, long lastModified, int contentLength, String fileName) {
+    public void serveFile(StaplerRequest2 req, InputStream data, long lastModified, int contentLength, String fileName) {
     }
 
     @Override
-    public void serveExposedBean(StaplerRequest req, Object exposedBean, Flavor flavor) {
+    public void serveExposedBean(StaplerRequest2 req, Object exposedBean, Flavor flavor) {
     }
 
     @Override
@@ -117,7 +117,7 @@ class ResponseCapture implements StaplerResponse {
     }
 
     @Override
-    public int reverseProxyTo(URL url, StaplerRequest req) {
+    public int reverseProxyTo(URL url, StaplerRequest2 req) {
         return 0;
     }
 
