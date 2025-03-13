@@ -28,6 +28,7 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import jenkins.model.Jenkins;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.kohsuke.stapler.interceptor.RequirePOST;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
@@ -119,6 +120,7 @@ class CorsHttpResponseTest {
         verify(respMock).setContentType("application/json;charset=UTF-8");
     }
 
+    @RequirePOST
     @NonNull
     private CorsHttpResponse create(@NonNull CorsHttpResponse response) {
         final CorsHttpResponse spy = Mockito.spy(response);
